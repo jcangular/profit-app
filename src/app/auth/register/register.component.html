@@ -1,17 +1,33 @@
 <div class="page-body-wrapper full-page-wrapper auth-page">
     <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
         <div class="row w-100">
-            <div class="col-lg-4 mx-auto">
+            <div class="col-12 col-md-8 col-xl-6 mx-auto">
                 <h2 class="text-center mb-4">Registro</h2>
                 <div class="auto-form-wrapper">
-                    <form action="#">
+
+                    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="email" class="form-control form-control-lg" placeholder="Correo">
+                                <input type="email" class="form-control form-control-lg" placeholder="Nombre"
+                                    formControlName="name" (focus)="$event.target.select()" #inputMail>
                                 <div class="input-group-append">
                                     <span class="input-group-text">
-                                        <i class="fa fa-check fa-check-circle"></i>
+                                        <i class="fa fa-check fa-check-circle"
+                                            [class.text-success]="registerForm.get('name').valid"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="email" class="form-control form-control-lg" placeholder="Correo"
+                                    formControlName="mail" (focus)="$event.target.select()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-check fa-check-circle text-success"
+                                            [class.text-success]="registerForm.get('mail').valid"></i>
                                     </span>
                                 </div>
                             </div>
@@ -20,23 +36,30 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="password" class="form-control form-control-lg" placeholder="Password">
+                                <input type="password" class="form-control form-control-lg" placeholder="Contraseña"
+                                    formControlName="pass" (focus)="$event.target.select()">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
-                                        <i class="fa fa-check fa-check-circle"></i>
+                                        <i class="fa fa-check fa-check-circle text-success"
+                                            [class.text-success]="registerForm.get('pass').valid"></i>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-primary submit-btn btn-block">Crear cuenta</button>
+                            <button type="submit" class="btn btn-primary submit-btn btn-block"
+                                [disabled]="registerForm.invalid">
+                                Crear cuenta
+                            </button>
                         </div>
+
                         <div class="text-block text-center my-3">
                             <span class="text-small font-weight-semibold">¿Ya tienes una cuenta?</span>
                             <br>
                             <a routerLink="/login" class="text-black text-small">Iniciar sesión</a>
                         </div>
+
                     </form>
                 </div>
             </div>

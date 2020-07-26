@@ -13,6 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "firebase/app",
+              "@firebase/app",
+              "@firebase/firestore",
+              "@firebase/auth",
+              "@firebase/component",
+              "@firebase/util"
+            ],
             "outputPath": "dist/profit-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -105,6 +113,10 @@
               "devServerTarget": "profit-app:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
