@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import * as authActions from '../auth/auth.actions';
 
-import { User } from '../models/user.models';
+import { User } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'
