@@ -2,6 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// NgRx
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducers, devtoolsOptions } from './app.reducer';
+
 // Angular Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -37,11 +42,13 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     ],
     imports: [
         BrowserModule,
+        AppRoutingModule,
         ReactiveFormsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireAuthModule,
-        AppRoutingModule
+        StoreModule.forRoot(appReducers),
+        StoreDevtoolsModule.instrument(devtoolsOptions)
     ],
     providers: [],
     bootstrap: [AppComponent]
