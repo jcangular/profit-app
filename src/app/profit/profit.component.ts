@@ -1,10 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import * as ui from '../shared/ui.actions';
+
+import Swal from 'sweetalert2';
 
 import { Profit } from '../models/profit.model';
 import { ProfitService } from '../services/profit.service';
-
-import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-profit',
@@ -12,24 +17,37 @@ import Swal from 'sweetalert2';
     styles: [
     ]
 })
-export class ProfitComponent implements OnInit {
+export class ProfitComponent implements OnInit, OnDestroy {
 
     profitForm: FormGroup;
     type: string;
+    loading: boolean;
+    uiSubs: Subscription;
     @ViewChild('inputDesc') inputDesc: ElementRef<HTMLInputElement>;
 
     constructor(
         private fb: FormBuilder,
-        private profitService: ProfitService
+        private profitService: ProfitService,
+        private store: Store<AppState>
     ) {
         this.type = 'ingreso';
+        this.loading = false;
     }
 
     ngOnInit(): void {
+
         this.profitForm = this.fb.group({
             description: ['', Validators.required],
             amount: ['', Validators.required]
         });
+
+        setTimeout(() => this.inputDesc.nativeElement.select(), 10);
+
+        this.uiSubs = this.store.select('ui').subscribe(({ loading }) => this.loading = loading);
+    }
+
+    ngOnDestroy(): void {
+        this.uiSubs.unsubscribe();
     }
 
     save(): void {
@@ -37,6 +55,8 @@ export class ProfitComponent implements OnInit {
         if (this.profitForm.invalid) {
             return;
         }
+
+        this.store.dispatch(ui.isLoading());
 
         const { description, amount } = this.profitForm.value;
         const newProfit = new Profit(description, this.type, amount);
@@ -59,7 +79,7 @@ export class ProfitComponent implements OnInit {
                     onAfterClose: () => setTimeout(() => this.inputDesc.nativeElement.select(), 10)
                 });
                 // Swal.fire('Error al crear registro', ex.message, 'error');
-            });
+            }).finally(() => this.store.dispatch(ui.stopLoading()));
 
     }
 
