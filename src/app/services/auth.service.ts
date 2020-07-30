@@ -17,11 +17,17 @@ export class AuthService {
 
     fsUserSubs: Subscription;
 
+    private user: User;
+
     constructor(
         private auth: AngularFireAuth,
         private firestore: AngularFirestore,
         private store: Store<AppState>
     ) { }
+
+    get uid(): string {
+        return this.user.uid;
+    }
 
     /**
      * Inicializa la suscripción al AngularFireAuth.authState.
@@ -32,10 +38,11 @@ export class AuthService {
                 this.fsUserSubs = this.firestore.doc(`${fUser.uid}/user`)
                     .valueChanges()
                     .subscribe((fsUser: any) => {
-                        const user = User.fromFirebase(fsUser);
-                        this.store.dispatch(authActions.setUser({ user }));
+                        this.user = User.fromFirebase(fsUser);
+                        this.store.dispatch(authActions.setUser({ user: this.user }));
                     });
             } else {
+                this.user = null;
                 this.fsUserSubs.unsubscribe();
                 this.store.dispatch(authActions.unsetUser());
             }
