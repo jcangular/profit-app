@@ -4,6 +4,8 @@ import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 
 import { AuthService } from '../services/auth.service';
 import { Profit } from '../models/profit.model';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -20,4 +22,16 @@ export class ProfitService {
             .collection('items')
             .add({ ...profit });
     }
+
+    itemsListener(uid: string): Observable<Profit[]> {
+        return this.firestore.collection(`${uid}/profit/items`)
+            .snapshotChanges()
+            .pipe(
+                map(snapshot => snapshot.map(doc => ({
+                    uid: doc.payload.doc.id,
+                    ...doc.payload.doc.data() as Profit
+                })))
+            );
+    }
+
 }
