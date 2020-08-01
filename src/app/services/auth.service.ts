@@ -44,7 +44,7 @@ export class AuthService {
                     });
             } else {
                 this.user = null;
-                this.fsUserSubs.unsubscribe();
+                this.fsUserSubs?.unsubscribe();
                 this.store.dispatch(authActions.unsetUser());
                 this.store.dispatch(profitActions.unsetItems());
             }

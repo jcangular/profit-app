@@ -25,6 +25,10 @@ export class ProfitService {
             .add({ ...item });
     }
 
+    /**
+     * Devuelve un Observable con la colección de items del usuario.
+     * @param uid es el id del usuari en Firebase.
+     */
     itemsListener(uid: string): Observable<Profit[]> {
         return this.firestore.collection(`${uid}/profit/items`)
             .snapshotChanges()
@@ -34,6 +38,13 @@ export class ProfitService {
                     ...doc.payload.doc.data() as Profit
                 })))
             );
+    }
+    /**
+     * Remueve un item de la colección de items en Firestore.
+     * @param uid es el id del item en Firestore.
+     */
+    removeItem(uidItem: string): Promise<void> {
+        return this.firestore.doc(`${this.authService.uid}/profit/items/${uidItem}`).delete();
     }
 
 }

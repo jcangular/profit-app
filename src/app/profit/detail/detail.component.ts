@@ -6,6 +6,8 @@ import { AppState } from '../../app.reducer';
 // import * as profitActions from '../../profit/profit.actions';
 
 import { Profit } from '../../models/profit.model';
+import { ProfitService } from '../../services/profit.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-detail',
@@ -19,7 +21,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     itemsSubs: Subscription;
 
     constructor(
-        private store: Store<AppState>
+        private store: Store<AppState>,
+        private profitService: ProfitService
     ) { }
 
     ngOnInit(): void {
@@ -30,8 +33,10 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.itemsSubs.unsubscribe();
     }
 
-    remove(uid: string): void {
-        console.log('Remover: ', uid);
+    remove(uidItem: string): void {
+        this.profitService.removeItem(uidItem)
+            .then(() => Swal.fire('Borrado', 'El item fue borrado', 'success'))
+            .catch(ex => Swal.fire('Error al borrar item', ex.message, 'error'));
     }
 
 }
