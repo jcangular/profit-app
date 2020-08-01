@@ -7,6 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import * as authActions from '../auth/auth.actions';
+import * as profitActions from '../profit/profit.actions';
 
 import { User } from '../models/user.model';
 
@@ -45,6 +46,7 @@ export class AuthService {
                 this.user = null;
                 this.fsUserSubs.unsubscribe();
                 this.store.dispatch(authActions.unsetUser());
+                this.store.dispatch(profitActions.unsetItems());
             }
         });
     }

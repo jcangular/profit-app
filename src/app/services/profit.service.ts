@@ -18,9 +18,11 @@ export class ProfitService {
     ) { }
 
     addProfit(profit: Profit): Promise<DocumentReference> {
+        const item = { ...profit };
+        delete item.uid;
         return this.firestore.doc(`${this.authService.uid}/profit`)
             .collection('items')
-            .add({ ...profit });
+            .add({ ...item });
     }
 
     itemsListener(uid: string): Observable<Profit[]> {

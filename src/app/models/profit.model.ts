@@ -5,6 +5,6 @@ export class Profit {
         public description: string,
         public type: string,
         public amount: number,
-        // public uid?: string
+        public uid?: string
     ) { }
 }
