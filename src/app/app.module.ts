@@ -13,6 +13,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppRoutingModule } from './app-routing.module';
 
 
@@ -46,6 +48,7 @@ import { ProfitSortPipe } from './pipes/profit-sort.pipe';
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
+        ChartsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireAuthModule,
