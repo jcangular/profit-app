@@ -30,10 +30,7 @@ export class StatisticComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<AppState>
     ) {
-        this.totalEgresos = 0;
-        this.totalIngresos = 0;
-        this.egresos = 0;
-        this.ingresos = 0;
+        this.statReset();
     }
 
     ngOnInit(): void {
@@ -45,11 +42,18 @@ export class StatisticComponent implements OnInit, OnDestroy {
         this.itemsSubs.unsubscribe();
     }
 
-    generateStatistic(items: Profit[]): void {
+    /**
+     * Reinicia los valores de los ingresos y egresos.
+     */
+    private statReset(): void {
         this.totalEgresos = 0;
         this.totalIngresos = 0;
         this.egresos = 0;
         this.ingresos = 0;
+    }
+
+    generateStatistic(items: Profit[]): void {
+        this.statReset();
         items.forEach(item => {
             if (item.type === 'ingreso') {
                 this.totalIngresos += item.amount;
