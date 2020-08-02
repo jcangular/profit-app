@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { StoreModule } from '@ngrx/store';
+import * as profit from './profit.reducer';
+
 import { ChartsModule } from 'ng2-charts';
 
 import { SharedModule } from '../shared/shared.module';
@@ -24,6 +27,7 @@ import { ProfitSortPipe } from '../pipes/profit-sort.pipe';
     ],
     imports: [
         CommonModule,
+        StoreModule.forFeature('profit', profit.profitReducer),
         ReactiveFormsModule,
         DashboardRoutingModule,
         ChartsModule,

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.reducer';
+import { AppStateWithProfit } from './profit.reducer';
 import * as ui from '../shared/ui.actions';
 
 import Swal from 'sweetalert2';
@@ -28,7 +28,7 @@ export class ProfitComponent implements OnInit, OnDestroy {
     constructor(
         private fb: FormBuilder,
         private profitService: ProfitService,
-        private store: Store<AppState>
+        private store: Store<AppStateWithProfit>
     ) {
         this.type = 'ingreso';
         this.loading = false;

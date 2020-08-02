@@ -10,13 +10,11 @@ import * as profit from './profit/profit.reducer';
 export interface AppState {
     ui: ui.State;
     user: auth.State;
-    profit: profit.State;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
     ui: ui.uiReducer,
-    user: auth.authReducer,
-    profit: profit.profitReducer
+    user: auth.authReducer
 };
 
 export const devtoolsOptions: StoreDevtoolsOptions = {
