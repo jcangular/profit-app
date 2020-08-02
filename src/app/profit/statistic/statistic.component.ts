@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+import { AppStateWithProfit } from '../profit.reducer';
 import { Subscription } from 'rxjs';
 import { Profit } from '../../models/profit.model';
 
@@ -28,7 +28,7 @@ export class StatisticComponent implements OnInit, OnDestroy {
     readonly chartType: ChartType = 'doughnut';
 
     constructor(
-        private store: Store<AppState>
+        private store: Store<AppStateWithProfit>
     ) {
         this.statReset();
     }
