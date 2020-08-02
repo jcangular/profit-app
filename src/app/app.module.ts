@@ -13,45 +13,33 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
-import { ChartsModule } from 'ng2-charts';
-
 import { AppRoutingModule } from './app-routing.module';
-
-
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfitComponent } from './profit/profit.component';
-import { StatisticComponent } from './profit/statistic/statistic.component';
-import { DetailComponent } from './profit/detail/detail.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { ProfitSortPipe } from './pipes/profit-sort.pipe';
+
+// Modulos
+import { AuthModule } from './auth/auth.module';
+import { ProfitModule } from './profit/profit.module';
+
+
+
+
+
 
 @NgModule({
     declarations: [
-        AppComponent,
-        LoginComponent,
-        RegisterComponent,
-        DashboardComponent,
-        ProfitComponent,
-        StatisticComponent,
-        DetailComponent,
-        FooterComponent,
-        NavbarComponent,
-        SidebarComponent,
-        ProfitSortPipe
+        AppComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        ReactiveFormsModule,
-        ChartsModule,
+
+        AuthModule,
+
+
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireAuthModule,
+
         StoreModule.forRoot(appReducers),
         StoreDevtoolsModule.instrument(devtoolsOptions)
     ],
